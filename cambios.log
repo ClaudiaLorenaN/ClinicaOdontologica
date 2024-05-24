@@ -1,0 +1,38 @@
+[2024-05-23 19:46:25] [ WARN ] [BD:34] La columna "EMAIL" no permite valores nulos (NULL)
+NULL not allowed for column "EMAIL"; SQL statement:
+INSERT INTO PACIENTES (NOMBRE, APELLIDO, CEDULA, FECHA_INGRESO, DOMICILIO_ID) VALUES ('Jorgito','Pereyra','111111','2024-05-16', 1), ('German','Fraire','22222','2024-05-10',2) [23502-224]
+[2024-05-23 19:46:25] [ INFO ] [PacienteDAOH2:70] iniciando la operacion de buscado de un paciente con id : 2
+[2024-05-23 19:48:18] [ WARN ] [BD:34] La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO PACIENTES (NOMBRE, APELLIDO, CEDULA, FECHA_INGRESO, DOMICILIO_ID) VALUES ('Jorgito','Pereyra','111111','2024-05-16', 1, 'jorge.pereyra@digitalhouse.com'), ('German','Fraire','22222','2024-05-10',2,'german@german.com'); INSERT INTO DOMICILIOS  (CALLE, NUMERO, LOCALIDAD, PROVINCIA) VALUES ('Siempre Viva',742,'Springfield','USA'),('Av. Uruguay',345,'Punta del Este','Uruguay') [21002-224]
+[2024-05-23 19:48:18] [ INFO ] [PacienteDAOH2:70] iniciando la operacion de buscado de un paciente con id : 2
+[2024-05-23 19:53:34] [ WARN ] [BD:34] La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO PACIENTES (NOMBRE, APELLIDO, CEDULA, FECHA_INGRESO, DOMICILIO_ID) VALUES ('Jorgito','Pereyra','111111','2024-05-16', 1, 'jorge.pereyra@digitalhouse.com'), ('German','Fraire','22222','2024-05-10',2,'german@german.com'); INSERT INTO DOMICILIOS  (CALLE, NUMERO, LOCALIDAD, PROVINCIA) VALUES ('Siempre Viva',742,'Springfield','USA'),('Av. Uruguay',345,'Punta del Este','Uruguay') [21002-224]
+[2024-05-23 19:56:55] [ INFO ] [BD:29] tabla creada con exito
+[2024-05-23 19:58:18] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 19:58:18] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 19:59:47] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 19:59:47] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 19:59:59] [ INFO ] [BD:29] tabla creada con exito
+[2024-05-23 20:03:23] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 20:03:23] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 20:03:25] [ INFO ] [BD:29] tabla creada con exito
+[2024-05-23 20:03:29] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 20:03:29] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 20:03:41] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 20:03:41] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 20:03:45] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 20:03:45] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 20:03:52] [ INFO ] [BD:29] tabla creada con exito
+[2024-05-23 20:03:59] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 20:03:59] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 20:27:28] [ INFO ] [BD:29] tabla creada con exito
+[2024-05-23 20:28:24] [ INFO ] [PacienteDAOH2:176] iniciando la búsqueda por email: jorge.pereyra@digitalhouse.com
+[2024-05-23 20:28:24] [ INFO ] [DomicilioDAOH2:57] iniciando la busqueda de un domicilio con id: 1
+[2024-05-23 20:29:09] [ INFO ] [OdontologoDAOH2:50] iniciando la busqueda de un odontologo con id: 1
+[2024-05-23 20:29:09] [ ERROR] [OdontologoDAOH2:64] Tabla "ODONTOLOGOS" no encontrada
+Table "ODONTOLOGOS" not found; SQL statement:
+SELECT * FROM ODONTOLOGOS WHERE ID=? [42102-224]
+[2024-05-23 20:34:17] [ INFO ] [BD_OD:22] tabla creada con exito
+[2024-05-23 20:34:29] [ INFO ] [OdontologoDAOH2:50] iniciando la busqueda de un odontologo con id: 1
