@@ -1,8 +1,6 @@
 package BackendC3.ClinicaOdontologica.dao;
 
-import BackendC3.ClinicaOdontologica.model.Domicilio;
 import BackendC3.ClinicaOdontologica.model.Odontologo;
-import BackendC3.ClinicaOdontologica.model.Paciente;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -12,11 +10,12 @@ import java.util.List;
 public class OdontologoDAOH2 implements iDao<Odontologo> {
     private static final Logger logger= Logger.getLogger(OdontologoDAOH2.class);
 
-    private static final String SQL_INSERT="INSERT INTO ODONTOLOGOS(NUMERO_MATRICULA, NOMBRE, APELLIDO) VALUES(?,?,?)";
+    private static final String SQL_INSERT="INSERT INTO ODONTOLOGOS(MATRICULA, NOMBRE, APELLIDO) VALUES(?,?,?)";
     private static final String SQL_SELECT_ALL="SELECT * FROM ODONTOLOGOS";
     private static final String SQL_SELECT_ONE="SELECT * FROM ODONTOLOGOS WHERE ID=?";
     private static final String SQL_DELETE_ONE="DELETE FROM ODONTOLOGOS WHERE ID = ?";
-    private static final String SQL_UPDATE="UPDATE FROM ODONTOLOGOS WHERE ID = ?";
+    private static final String SQL_UPDATE="UPDATE ODONTOLOGOS SET MATRICULA=?, NOMBRE=?, APELLIDO=? WHERE ID = ?";
+    private static final String SQL_SELECT_BY_MATRICULA="SELECT * FROM ODONTOLOGOS WHERE MATRICULA=?";
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {
@@ -26,18 +25,22 @@ public class OdontologoDAOH2 implements iDao<Odontologo> {
 
         try{
             //levantar driver y conección
-            connection= BD_OD.getConnection();
+            connection= BD.getConnection();
 
             //crear sentencia
             preparedStatement = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, odontologo.getNumeroMatricula());
+            preparedStatement.setInt(1, odontologo.getMatricula());
             preparedStatement.setString(2, odontologo.getNombre());
             preparedStatement.setString(3, odontologo.getApellido());
 
             //ejecutar una sentencia
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
             //preparedStatement.close();
+            ResultSet clave = preparedStatement.getGeneratedKeys();
 
+            while(clave.next()){
+                odontologo.setId(clave.getInt(1));
+            }
 
         }catch(Exception e){
             logger.error(e.getMessage());
@@ -51,7 +54,7 @@ public class OdontologoDAOH2 implements iDao<Odontologo> {
         Connection connection= null;
         Odontologo odontologo= null;
         try{
-            connection= BD_OD.getConnection();
+            connection= BD.getConnection();
             PreparedStatement psSelectOne= connection.prepareStatement(SQL_SELECT_ONE);
             psSelectOne.setInt(1,id);
             ResultSet rs= psSelectOne.executeQuery();
@@ -72,7 +75,7 @@ public class OdontologoDAOH2 implements iDao<Odontologo> {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            BD_OD.getConnection();
+            BD.getConnection();
 
             preparedStatement = connection.prepareStatement(SQL_DELETE_ONE);
             preparedStatement.setInt(1,id);
@@ -93,7 +96,7 @@ public class OdontologoDAOH2 implements iDao<Odontologo> {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            BD_OD.getConnection();
+            BD.getConnection();
 
             preparedStatement = connection.prepareStatement(SQL_UPDATE);
             preparedStatement.setInt(1,odontologo.getId());
@@ -112,25 +115,26 @@ public class OdontologoDAOH2 implements iDao<Odontologo> {
     public List<Odontologo> buscarTodos() {
         logger.info("Iniciando la búsqueda de todos los odontologos");
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        Statement statement = null;
         List<Odontologo> odontologos = new ArrayList<>();
+        Odontologo odontologo = null;
         try{
-            connection= BD_OD.getConnection();
+            connection= BD.getConnection();
             //Statement statement= connection.createStatement();
-            preparedStatement = connection.prepareStatement(SQL_SELECT_ALL);
+            statement = connection.createStatement();
 
-            ResultSet result = preparedStatement.executeQuery();
+            ResultSet result = statement.executeQuery(SQL_SELECT_ALL);
 
             while(result.next()){
                 Integer id = result.getInt("id");
-                Integer numero_matricula = result.getInt("numero_matricula");
+                Integer matricula = result.getInt("matricula");
                 String nombre = result.getString("nombre");
                 String apellido = result.getString("apellido");
 
 
-                odontologos.add(new Odontologo(id, numero_matricula, nombre, apellido));
+                odontologos.add(new Odontologo(id, matricula, nombre, apellido));
 
-                System.out.println(id + numero_matricula + nombre + apellido);
+                System.out.println(id + matricula + nombre + apellido);
             }
 
         }catch(Exception e){

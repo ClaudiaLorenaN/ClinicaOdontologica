@@ -2,6 +2,7 @@ package BackendC3.ClinicaOdontologica.dao;
 
 import BackendC3.ClinicaOdontologica.model.Domicilio;
 import BackendC3.ClinicaOdontologica.model.Odontologo;
+import jdk.jshell.spi.SPIResolutionException;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -13,16 +14,15 @@ import java.util.List;
 
 public class DomicilioDAOH2 implements iDao<Domicilio>{
     private static final Logger logger= Logger.getLogger(DomicilioDAOH2.class);
-
+    private static final String SQL_SELECT_ONE="SELECT * FROM DOMICILIOS WHERE ID=?";
     private static final String SQL_INSERT="INSERT INTO DOMICILIOS(CALLE, NUMERO, LOCALIDAD, PROVINCIA) VALUES(?,?,?,?)";
     private static final String SQL_SELECT_ALL="SELECT * FROM DOMICILIOS";
-    private static final String SQL_SELECT_ONE="SELECT * FROM DOMICILIOS WHERE ID=?";
-    private static final String SQL_DELETE_ONE="DELETE FROM DOMICILIOS WHERE ID = ?";
     private static final String SQL_UPDATE="UPDATE FROM DOMICILIOS WHERE ID = ?";
-
+    private static final String SQL_UPDATE_ALL="UPDATE DOMICILIOS SET CALLE =?, NUMERO=?, LOCALIDAD=?, PROVINCIA=? WHERE ID=?";
+    private static final String SQL_DELETE_ONE="DELETE FROM DOMICILIOS WHERE ID = ?";
     @Override
     public Domicilio guardar(Domicilio domicilio) {
-        logger.info("inicio del Guardado o agregado de domicilios");
+        logger.info("inicio del Guardado o agregado de domicilio: " + domicilio.getId());
         Connection connection = null;
         //PreparedStatement preparedStatement = null;
 
@@ -101,10 +101,17 @@ public class DomicilioDAOH2 implements iDao<Domicilio>{
         try{
             BD.getConnection();
 
-            preparedStatement = connection.prepareStatement(SQL_UPDATE);
-            preparedStatement.setInt(1,domicilio.getId());
+            preparedStatement = connection.prepareStatement(SQL_UPDATE_ALL);
+            //preparedStatement.setInt(1,domicilio.getId());
 
-            preparedStatement.executeUpdate();
+            //falta falta
+            preparedStatement.setString(1, domicilio.getCalle());
+            preparedStatement.setInt(2, domicilio.getNumero());
+            preparedStatement.setString(3, domicilio.getLocalidad());
+            preparedStatement.setString(4, domicilio.getProvincia());
+            preparedStatement.setInt(5, domicilio.getId());
+
+            preparedStatement.execute();
             //preparedStatement.close();*/
 
         }catch (Exception e){

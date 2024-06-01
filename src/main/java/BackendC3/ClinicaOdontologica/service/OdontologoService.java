@@ -10,12 +10,16 @@ import java.util.List;
 public class OdontologoService {
     private iDao<Odontologo> odontologoiDao;
 
-    public OdontologoService(String origenDatos) {
+    /*public OdontologoService(String origenDatos) {
         if(origenDatos.equals("h2")){
             odontologoiDao= new OdontologoDAOH2();
         }else{
             odontologoiDao= new OdontologoDAOList();
         }
+    }*/
+
+    public OdontologoService() {
+        odontologoiDao= new OdontologoDAOH2();
     }
 
     //metodos manuales
